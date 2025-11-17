@@ -2,7 +2,7 @@
 
 #define _USE_MATH_DEFINES
 
-#include "Kwaterion.h"
+#include "Kwaternion.h"
 #include <cmath>
 
 
