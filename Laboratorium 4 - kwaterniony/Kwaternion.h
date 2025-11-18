@@ -20,6 +20,9 @@ public:
     // Mnożenie kwaternionów
     Kwaternion operator*(const Kwaternion& q) const;
 
+    //Dzielenie kwaternionów
+    Kwaternion operator/(const Kwaternion& q) const;
+
     // Sprzężenie kwaternionu
     Kwaternion sprzez() const;
 
@@ -34,6 +37,8 @@ public:
 
     // Wypisywanie kwaternionu
     void wypisz() const;
+
+
 };
 
 // Funkcja do tworzenia kwaternionu rotacji wokół osi
