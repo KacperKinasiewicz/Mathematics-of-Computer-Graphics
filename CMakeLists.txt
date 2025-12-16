@@ -1,11 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
-project(MathematicsOfComputerGraphics)
+cmake_minimum_required(VERSION 4.0)
+project(Mathematics_of_Computer_Graphics)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 14)
 
-# Opcjonalnie: włącz obsługę folderów w IDE (np. Visual Studio)
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+include_directories("Laboratorium 4 - kwaterniony")
 
 # Dodawanie podkatalogów. 
 

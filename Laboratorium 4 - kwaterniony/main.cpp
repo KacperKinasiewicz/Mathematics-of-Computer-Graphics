@@ -77,10 +77,10 @@ int main() {
     std::cout << "Oczekiwany wynik: (1 + -2i + -3j + -4k)\n";
     separator();
 
-    std::cout << "DŁUGOŚĆ\n";
+    std::cout << "NORMA\n";
     Kwaternion q9(1, 2, 2, 0);
     std::cout << "q9 = "; q9.wypisz();
-    double norma_q9 = q9.dlugosc();
+    double norma_q9 = q9.norma();
     std::cout << "||q9|| = " << norma_q9 << std::endl;
     std::cout << "Oczekiwany wynik: 3 (sqrt(1 + 4 + 4 + 0) = sqrt(9) = 3)\n";
     separator();
@@ -88,11 +88,11 @@ int main() {
     std::cout << "NORMALIZACJA\n";
     Kwaternion q10(3, 0, 4, 0);
     std::cout << "q10 przed normalizacja: "; q10.wypisz();
-    std::cout << "||q10|| = " << q10.dlugosc() << std::endl;
+    std::cout << "||q10|| = " << q10.norma() << std::endl;
     q10.normalizuj();
     std::cout << "q10 po normalizacji: "; q10.wypisz();
-    std::cout << "||q10|| = " << q10.dlugosc() << std::endl;
-    std::cout << "Oczekiwany wynik: długość = 1\n";
+    std::cout << "||q10|| = " << q10.norma() << std::endl;
+    std::cout << "Oczekiwany wynik: norma = 1\n";
     separator();
 
     // ========================================================================
@@ -110,7 +110,7 @@ int main() {
     // Tworzymy kwaternion rotacji
     Kwaternion qRot = kwaternionRotacji(270, 1, 0, 0);
     std::cout << "Kwaternion rotacji: "; qRot.wypisz();
-    std::cout << "Długość kwaternionu: " << qRot.dlugosc() << "\n\n";
+    std::cout << "Norma kwaternionu: " << qRot.norma() << "\n\n";
 
     // Wykonujemy obrót
     qRot.obrocPunkt(px, py, pz);
