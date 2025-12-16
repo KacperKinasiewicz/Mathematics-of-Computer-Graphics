@@ -37,7 +37,7 @@ cmake_install.cmake
 Makefile
 
 # CLion specific
-
+.idea/
 cmake-build-*/
 
 # Backup and temporary files
