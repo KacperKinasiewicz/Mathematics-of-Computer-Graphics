@@ -26,8 +26,8 @@ public:
     // Sprzężenie kwaternionu
     Kwaternion sprzez() const;
 
-    // Norma kwaternionu
-    double norma() const;
+    // Długość kwaternionu
+    double dlugosc() const;
 
     // Normalizacja kwaternionu
     void normalizuj();

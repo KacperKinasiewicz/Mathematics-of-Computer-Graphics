@@ -54,13 +54,13 @@ Kwaternion Kwaternion::sprzez() const {
 }
 
 
-double Kwaternion::norma() const {
+double Kwaternion::dlugosc() const {
 	return std::sqrt(skalar * skalar + x * x + y * y + z * z);
 }
 
 
 void Kwaternion::normalizuj() {
-	double n = norma();
+	double n = dlugosc();
 	if (n > 0) {
 		skalar /= n; x /= n; y /= n; z /= n;
 	}

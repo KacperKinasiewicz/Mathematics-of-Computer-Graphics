@@ -36,6 +36,10 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 
+# CLion specific
+.idea/
+cmake-build-*/
+
 # Backup and temporary files
 *.tmp
 *.bak
@@ -53,3 +57,6 @@ desktop.ini
 !*.cpp
 !*.h
 !README.md
+
+# Ignore compressed files
+.zip

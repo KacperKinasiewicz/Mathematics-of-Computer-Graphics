@@ -1,4 +1,6 @@
 #include "Matrix4x4.h"
+#include <cstring>
+#include <cmath>
 
 Matrix4x4::Matrix4x4() {
     for (int i = 0; i < 16; ++i) {
