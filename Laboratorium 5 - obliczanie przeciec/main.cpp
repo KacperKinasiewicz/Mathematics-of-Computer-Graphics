@@ -7,8 +7,6 @@
 
 using namespace std;
 
-// --- STRUKTURY DANYCH ---
-
 struct Point3D {
     double x, y, z;
 };
@@ -25,8 +23,6 @@ struct Line3D {
 struct Plane {
     double A, B, C, D;
 };
-
-// --- FUNKCJE MATEMATYCZNE I POMOCNICZE ---
 
 double dotProduct(Vector3D a, Vector3D b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
@@ -51,7 +47,9 @@ Vector3D createVector(Point3D A, Point3D B) {
 bool solveSystem2x2(double a1, double b1, double c1,
     double a2, double b2, double c2,
     double& outX, double& outY) {
+
     double W = a1 * b2 - a2 * b1;
+
     if (abs(W) < 1e-9) return false;
 
     double Wx = c1 * b2 - c2 * b1;
@@ -73,9 +71,7 @@ bool findClosestPointsOnLines(Line3D L1, Line3D L2, double& t, double& s) {
 
     double denominator = a * c - b * b;
 
-    if (abs(denominator) < 1e-9) {
-        return false;
-    }
+    if (abs(denominator) < 1e-9) return false;
 
     t = (b * e - c * d) / denominator;
     s = (a * e - b * d) / denominator;
@@ -87,17 +83,13 @@ Point3D getPointOnLine(Line3D L, double t) {
     return { L.P.x + t * L.v.x, L.P.y + t * L.v.y, L.P.z + t * L.v.z };
 }
 
-// --- ZADANIA ---
-
-// Zadanie 1: Punkt przecięcia prostych
 void zadanie1() {
-    cout << "\n=== ZADANIE 1 ===\n";
+    cout << "\n=== ZADANIE 1 (Przeciecie prostych) ===\n";
 
     Line3D L1 = { {-2, 4, 0}, {3, 1, 5} };
     Line3D L2 = { {-2, 4, 0}, {1, -5, 3} };
 
-    cout << "Prosta A: P=(" << L1.P.x << "," << L1.P.y << "," << L1.P.z << ") + t[" << L1.v.x << "," << L1.v.y << "," << L1.v.z << "]\n";
-    cout << "Prosta B: P=(" << L2.P.x << "," << L2.P.y << "," << L2.P.z << ") + s[" << L2.v.x << "," << L2.v.y << "," << L2.v.z << "]\n";
+    cout << "Sprawdzamy odleglosc miedzy prostymi...\n";
 
     double t, s;
     if (findClosestPointsOnLines(L1, L2, t, s)) {
@@ -107,20 +99,19 @@ void zadanie1() {
         double dist = sqrt(pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2) + pow(P1.z - P2.z, 2));
 
         if (dist < 1e-5) {
-            cout << "Punkt przeciecia: (" << P1.x << ", " << P1.y << ", " << P1.z << ")\n";
+            cout << "SUKCES! Przecinaja sie w: (" << P1.x << ", " << P1.y << ", " << P1.z << ")\n";
         }
         else {
-            cout << "Proste sa skosne (mijaja sie). Min. dystans: " << dist << "\n";
+            cout << "Mijaja sie (sa skosne). Minimalny dystans: " << dist << "\n";
         }
     }
     else {
-        cout << "Proste sa rownolegle.\n";
+        cout << "Sa rownolegle (brak punktu wspolnego).\n";
     }
 }
 
-// Zadanie 2: Kąt między prostymi
 void zadanie2() {
-    cout << "\n=== ZADANIE 2 ===\n";
+    cout << "\n=== ZADANIE 2 (Kat prostych) ===\n";
     Vector3D v1 = { 3, 1, 5 };
     Vector3D v2 = { 1, -5, 3 };
 
@@ -131,34 +122,31 @@ void zadanie2() {
     double cosAngle = abs(dot) / (len1 * len2);
     double angle = acos(cosAngle) * 180.0 / M_PI;
 
-    cout << "v1=[" << v1.x << "," << v1.y << "," << v1.z << "], v2=[" << v2.x << "," << v2.y << "," << v2.z << "]\n";
     cout << "Kat = " << angle << " stopni\n";
 }
 
-// Zadanie 3: Przecięcie prostej i płaszczyzny
 void zadanie3() {
-    cout << "\n=== ZADANIE 3 ===\n";
+    cout << "\n=== ZADANIE 3 (Prosta i plaszczyzna) ===\n";
     Line3D L = { {-2, 2, -1}, {3, -1, 2} };
     Plane P = { 2, 3, 3, -8 };
 
     double denominator = P.A * L.v.x + P.B * L.v.y + P.C * L.v.z;
 
     if (abs(denominator) < 1e-9) {
-        cout << "Prosta jest rownolegla do plaszczyzny.\n";
+        cout << "Prosta jest rownolegla do plaszczyzny (brak przeciecia).\n";
     }
     else {
         double numerator = P.A * L.P.x + P.B * L.P.y + P.C * L.P.z + P.D;
         double t = -numerator / denominator;
-        Point3D intersection = getPointOnLine(L, t);
 
+        Point3D intersection = getPointOnLine(L, t);
         cout << "t = " << t << "\n";
         cout << "Punkt przeciecia: (" << intersection.x << ", " << intersection.y << ", " << intersection.z << ")\n";
     }
 }
 
-// Zadanie 4: Kąt między prostą a płaszczyzną
 void zadanie4() {
-    cout << "\n=== ZADANIE 4 ===\n";
+    cout << "\n=== ZADANIE 4 (Kat prosta-plaszczyzna) ===\n";
     Vector3D v = { 3, -1, 2 };
     Vector3D n = { 2, 3, 3 };
 
@@ -172,17 +160,16 @@ void zadanie4() {
     cout << "Kat = " << angle << " stopni\n";
 }
 
-// Zadanie 5: Prosta przecięcia płaszczyzn
 void zadanie5() {
-    cout << "\n=== ZADANIE 5 ===\n";
+    cout << "\n=== ZADANIE 5 (Przeciecie plaszczyzn) ===\n";
     Plane P1 = { 2, -1, 1, -8 };
     Plane P2 = { 4, 3, 1, 14 };
 
     Vector3D n1 = { P1.A, P1.B, P1.C };
     Vector3D n2 = { P2.A, P2.B, P2.C };
-    Vector3D v = crossProduct(n1, n2);
 
-    cout << "Wektor kierunkowy prostej v = [" << v.x << ", " << v.y << ", " << v.z << "]\n";
+    Vector3D v = crossProduct(n1, n2);
+    cout << "Kierunek prostej v = [" << v.x << ", " << v.y << ", " << v.z << "]\n";
 
     Point3D P0;
     if (abs(v.z) >= abs(v.x) && abs(v.z) >= abs(v.y)) {
@@ -201,15 +188,14 @@ void zadanie5() {
             P0 = { 0, y, z };
     }
 
-    cout << "Rownanie parametryczne:\n";
+    cout << "Prosta parametryczna:\n";
     cout << "x = " << P0.x << " + (" << v.x << ")t\n";
     cout << "y = " << P0.y << " + (" << v.y << ")t\n";
     cout << "z = " << P0.z << " + (" << v.z << ")t\n";
 }
 
-// Zadanie 6: Kąt między płaszczyznami
 void zadanie6() {
-    cout << "\n=== ZADANIE 6 ===\n";
+    cout << "\n=== ZADANIE 6 (Kat plaszczyzn) ===\n";
     Vector3D n1 = { 2, -1, 1 };
     Vector3D n2 = { 4, 3, 1 };
 
@@ -223,9 +209,8 @@ void zadanie6() {
     cout << "Kat = " << angle << " stopni\n";
 }
 
-// Zadanie 7: Przecięcie odcinków
 void zadanie7() {
-    cout << "\n=== ZADANIE 7 ===\n";
+    cout << "\n=== ZADANIE 7 (Odcinki) ===\n";
     Point3D A = { 5, 5, 4 }, A_end = { 10, 10, 6 };
     Point3D B = { 5, 5, 5 }, B_end = { 10, 10, 3 };
 
@@ -241,34 +226,29 @@ void zadanie7() {
 
         if (distSq < 1e-9) {
             if (t >= -1e-9 && t <= 1.0 + 1e-9 && s >= -1e-9 && s <= 1.0 + 1e-9) {
-                cout << "Odcinki przecinaja sie w punkcie: (" << P1.x << ", " << P1.y << ", " << P1.z << ")\n";
+                cout << "Przecinaja sie wewnatrz odcinkow: (" << P1.x << ", " << P1.y << ", " << P1.z << ")\n";
             }
             else {
-                cout << "Proste sie przecinaja, ale poza odcinkami.\n";
+                cout << "Proste sie przecinaja, ale POZA odcinkami (t=" << t << ", s=" << s << ")\n";
             }
         }
         else {
-            cout << "Odcinki sie mijaja.\n";
+            cout << "Odcinki mijaja sie (brak przeciecia).\n";
         }
     }
     else {
-        cout << "Odcinki sa rownolegle.\n";
+        cout << "Odcinki rownolegle.\n";
     }
 }
 
-// Zadanie 8: Sfera i prosta (3D)
 void zadanie8() {
-    cout << "\n=== ZADANIE 8 (Sfera) ===\n";
+    cout << "\n=== ZADANIE 8 (Sfera i prosta) ===\n";
     double rSq = 26.0;
     Point3D Center = { 0, 0, 0 };
 
     Point3D A = { 3, -1, -2 };
     Point3D A_prime = { 5, 3, -4 };
-
     Vector3D v = createVector(A, A_prime);
-
-    cout << "Sfera r^2=" << rSq << ", Srodek=(0,0,0)\n";
-    cout << "Prosta: P=(" << A.x << "," << A.y << "," << A.z << ") + t[" << v.x << "," << v.y << "," << v.z << "]\n";
 
     Vector3D L = createVector(Center, A);
 
@@ -279,36 +259,37 @@ void zadanie8() {
     double delta = b * b - 4 * a * c;
 
     if (delta < 0) {
-        cout << "Brak punktow wspolnych (delta < 0).\n";
+        cout << "Delta < 0: Prosta omija sfere.\n";
     }
     else {
         double t1 = (-b - sqrt(delta)) / (2 * a);
         Point3D sol1 = getPointOnLine({ A, v }, t1);
-        cout << "Punkt 1 (t=" << t1 << "): (" << sol1.x << ", " << sol1.y << ", " << sol1.z << ")\n";
+        cout << "Punkt trafienia 1: (" << sol1.x << ", " << sol1.y << ", " << sol1.z << ")\n";
 
         if (delta > 1e-9) {
             double t2 = (-b + sqrt(delta)) / (2 * a);
             Point3D sol2 = getPointOnLine({ A, v }, t2);
-            cout << "Punkt 2 (t=" << t2 << "): (" << sol2.x << ", " << sol2.y << ", " << sol2.z << ")\n";
+            cout << "Punkt trafienia 2: (" << sol2.x << ", " << sol2.y << ", " << sol2.z << ")\n";
+        }
+        else {
+            cout << "Delta = 0: Prosta jest styczna do sfery (1 punkt).\n";
         }
     }
 }
 
-// --- FUNKCJA GŁÓWNA ---
-
 int main() {
     int choice;
     do {
-        cout << "\nWYBIERZ ZADANIE: \n";
-        cout << "1 - Zadanie 1 (Przeciecie prostych)\n";
-        cout << "2 - Zadanie 2 (Kat miedzy prostymi)\n";
-        cout << "3 - Zadanie 3 (Prosta i plaszczyzna)\n";
-        cout << "4 - Zadanie 4 (Kat prosta-plaszczyzna)\n";
-        cout << "5 - Zadanie 5 (Przeciecie plaszczyzn)\n";
-        cout << "6 - Zadanie 6 (Kat miedzy plaszczyznami)\n";
-        cout << "7 - Zadanie 7 (Odcinki)\n";
-        cout << "8 - Zadanie dodatkowe (Sfera 3D)\n";
-        cout << "10 - Wszystkie\n";
+        cout << "\n--- GEOMETRIA ANALITYCZNA 3D ---\n";
+        cout << "1 - Przeciecie prostych\n";
+        cout << "2 - Kat miedzy prostymi\n";
+        cout << "3 - Przeciecie prostej i plaszczyzny\n";
+        cout << "4 - Kat prosta-plaszczyzna\n";
+        cout << "5 - Przeciecie dwoch plaszczyzn\n";
+        cout << "6 - Kat miedzy plaszczyznami\n";
+        cout << "7 - Przeciecie odcinkow\n";
+        cout << "8 - Przeciecie prostej i sfery\n";
+        cout << "10 - Uruchom wszystko\n";
         cout << "0 - Wyjscie\n";
         cout << "Wybor: ";
         cin >> choice;
@@ -327,6 +308,7 @@ int main() {
             zadanie5(); zadanie6(); zadanie7(); zadanie8();
             break;
         case 0: break;
+        default: cout << "Nieznana opcja.\n";
         }
     } while (choice != 0);
 
