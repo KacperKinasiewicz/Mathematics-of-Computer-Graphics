@@ -70,7 +70,7 @@ int main() {
 
     const double step = M_PI / 16.0;
     const int width = 60;
-    const int height = 60; // 60x60 wg polecenia
+    const int height = 30;
     const double aspectRatio = (double)width / height * 0.5;
 
     std::string buffer;
